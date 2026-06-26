@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plans — ATC Sports Complex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --white: #FEFEFE; --blue: #193A7E; --red: #D44440; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--white); color: var(--blue); overflow-x: hidden; }
+
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--blue); border-bottom: 4px solid var(--red); height: 90px; }
+    .navbar-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .navbar-logo { flex-shrink: 0; line-height: 0; }
+    .navbar-logo { flex-shrink: 0; line-height: 0; }
+    .navbar-logo img { height: 80px; width: auto; object-fit: contain; }
+    .navbar-links { display: flex; gap: 0.25rem; list-style: none; align-items: center; }
+    .navbar-links a { color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.4rem 0.75rem; transition: color 150ms; white-space: nowrap; }
+    .navbar-links a:hover, .navbar-links a.active { color: var(--red); }
+    .btn-primary { background: var(--red); color: var(--white); border: none; padding: 0.65rem 1.5rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 150ms, transform 150ms; white-space: nowrap; }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary-lg { padding: 1rem 2.5rem; font-size: 1.1rem; }
+    .navbar-hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 6px; padding: 4px; }
+    .navbar-hamburger span { display: block; width: 26px; height: 2px; background: var(--white); }
+    .navbar-mobile { display: none; position: fixed; top: 90px; left: 0; right: 0; background: var(--blue); border-bottom: 4px solid var(--red); padding: 1rem 2rem 1.5rem; z-index: 999; }
+    .navbar-mobile.open { display: block; }
+    .navbar-mobile a { display: block; color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1.3rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.85rem 0; border-bottom: 1px solid rgba(254,254,254,0.12); transition: color 150ms; }
+    .navbar-mobile a:last-child { border-bottom: none; }
+    .navbar-mobile a:hover { color: var(--red); }
+
+    /* PAGE HERO */
+    .page-hero { padding-top: 90px; background: var(--blue); position: relative; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; top: 90px; background-image: url('brand-assets/IMG_0349-2048x1536.jpeg'); background-size: cover; background-position: center 35%; opacity: 0.35; }
+    .page-hero-red-line { position: absolute; top: 90px; left: 0; right: 0; height: 5px; background: var(--red); }
+    .page-hero-content { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+    .page-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .page-label::before { content: ''; display: block; width: 30px; height: 2px; background: var(--red); }
+    .page-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(3.5rem, 9vw, 7rem); line-height: 0.9; text-transform: uppercase; letter-spacing: -0.02em; color: var(--white); margin-bottom: 1.5rem; }
+    .page-title .accent { color: var(--red); }
+    .page-subtitle { font-size: 1.1rem; line-height: 1.65; color: rgba(254,254,254,0.75); max-width: 560px; }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label::before { content: ''; display: block; width: 30px; height: 2px; background: var(--red); }
+    .section-heading { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 5vw, 3.75rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.01em; color: var(--blue); margin-bottom: 1.5rem; }
+    .section-heading .accent { color: var(--red); }
+    .body-text { font-size: 1.05rem; line-height: 1.7; color: rgba(25,58,126,0.75); margin-bottom: 0.4rem; }
+
+    /* PLANS INTRO */
+    .plans-intro { background: var(--white); padding: 5rem 0 3rem; text-align: center; }
+    .plans-intro .section-heading { text-align: center; }
+    .plans-intro .body-text { text-align: center; margin: 0 auto 1.25rem; }
+
+    /* PLANS TOP MARGIN */
+    .plans-top-note { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 3rem; }
+    .plans-top-note-line { flex: 1; height: 1px; background: rgba(25,58,126,0.1); }
+    .plans-top-note-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(25,58,126,0.4); white-space: nowrap; }
+
+    /* PLANS GRID */
+    .plans-grid { background: var(--white); padding: 0 0 5rem; }
+    .plans-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .plans-cards > * { min-width: 0; }
+    .plan-card { background: var(--white); border: 1px solid rgba(25,58,126,0.15); display: flex; flex-direction: column; transition: transform 200ms; overflow: hidden; }
+    .plan-card:hover { transform: translateY(-5px); }
+    .plan-card-featured { border-color: var(--red); }
+    .plan-card-img { height: 140px; background-size: cover; background-position: center; }
+    .plan-card-body { background: var(--blue); color: var(--white); padding: 1.75rem 1.75rem 1.5rem; flex: 1; display: flex; flex-direction: column; position: relative; }
+    .plan-card-featured .plan-card-body { background: var(--red); }
+    .plan-best-badge { display: inline-block; background: var(--blue); color: var(--white); font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1rem; text-align: center; margin-bottom: 0.75rem; align-self: center; }
+    .plan-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--white); text-align: center; margin-bottom: 1rem; }
+    .plan-price-row { display: flex; align-items: flex-start; justify-content: center; gap: 0.1rem; }
+    .plan-currency { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--white); margin-top: 0.5rem; }
+    .plan-amount { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 5rem; line-height: 1; color: var(--white); letter-spacing: -0.02em; }
+    .plan-period { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(254,254,254,0.9); text-align: center; margin: 0.3rem 0 0.4rem; }
+    .plan-joining { font-size: 0.85rem; color: rgba(254,254,254,0.75); text-align: center; margin-bottom: 1rem; }
+    .plan-desc { font-size: 0.9rem; color: rgba(254,254,254,0.9); text-align: center; margin-bottom: 0.4rem; line-height: 1.5; }
+    .plan-validity { font-size: 0.82rem; color: rgba(254,254,254,0.65); text-align: center; margin-bottom: 1.25rem; }
+    .btn-plan-select { display: block; text-align: center; background: transparent; color: var(--white); border: 2px solid rgba(254,254,254,0.55); padding: 0.75rem 1.5rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 150ms, border-color 150ms; margin-top: auto; }
+    .btn-plan-select:hover { background: rgba(254,254,254,0.15); border-color: var(--white); }
+    .plan-card-footer { background: var(--white); padding: 1rem 1.5rem; font-size: 0.88rem; line-height: 1.5; color: var(--blue); text-align: center; }
+    .plans-footnote { text-align: center; margin-top: 2rem; font-size: 0.82rem; color: rgba(25,58,126,0.6); line-height: 1.8; }
+
+    /* FEATURES COMPARE */
+    .compare { background: var(--blue); padding: 5rem 0; }
+    .section-label-white { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(254,254,254,0.6); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+    .section-label-white::before { content: ''; display: block; width: 30px; height: 2px; background: var(--red); }
+    .section-heading-white { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 5vw, 3.75rem); line-height: 0.95; text-transform: uppercase; letter-spacing: -0.01em; color: var(--white); margin-bottom: 3rem; }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 1rem 1.5rem; text-align: left; border-bottom: 2px solid rgba(212,68,64,0.6); }
+    .compare-table th:first-child { color: rgba(254,254,254,0.6); }
+    .compare-table th:not(:first-child) { color: var(--white); text-align: center; }
+    .compare-table td { padding: 0.85rem 1.5rem; border-bottom: 1px solid rgba(254,254,254,0.07); font-size: 0.9rem; }
+    .compare-table td:first-child { color: rgba(254,254,254,0.7); }
+    .compare-table td:not(:first-child) { text-align: center; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .check-icon { color: var(--red); display: inline-flex; }
+    .cross-icon { color: rgba(254,254,254,0.2); display: inline-flex; }
+    .compare-highlight { background: rgba(254,254,254,0.04); }
+
+    /* BENEFITS */
+    .benefits { background: var(--white); padding: 5rem 0; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3rem; }
+    .benefit-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .benefit-icon { width: 44px; height: 44px; background: var(--blue); color: var(--white); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .benefit-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--blue); margin-bottom: 0.35rem; }
+    .benefit-desc { font-size: 0.9rem; line-height: 1.6; color: rgba(25,58,126,0.65); }
+
+    /* FAQ */
+    .faq { background: var(--white); padding: 0 0 5rem; border-top: 1px solid rgba(25,58,126,0.08); }
+    .faq-list { max-width: 800px; margin-top: 3rem; }
+    .faq-item { border-bottom: 1px solid rgba(25,58,126,0.1); }
+    .faq-question { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.25rem 0; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 0.02em; color: var(--blue); list-style: none; transition: color 150ms; }
+    .faq-question:hover { color: var(--red); }
+    .faq-question::after { content: '+'; font-size: 1.5rem; font-weight: 400; flex-shrink: 0; color: var(--red); transition: transform 200ms; }
+    .faq-item.open .faq-question::after { transform: rotate(45deg); }
+    .faq-answer { display: none; padding: 0 0 1.25rem; font-size: 0.95rem; line-height: 1.7; color: rgba(25,58,126,0.7); }
+    .faq-item.open .faq-answer { display: block; }
+
+    /* FINAL CTA */
+    .final-cta { background: var(--red); padding: 5rem 0; text-align: center; }
+    .final-cta-heading { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 5vw, 4rem); text-transform: uppercase; color: var(--white); line-height: 0.95; margin-bottom: 0.4rem; }
+    .final-cta-text { font-size: 1.05rem; color: rgba(254,254,254,0.85); margin-bottom: 2.5rem; }
+    .btn-white-red { background: var(--white); color: var(--red); border: none; padding: 1.1rem 2.5rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: opacity 150ms, transform 150ms; }
+    .btn-white-red:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* FOOTER */
+    .footer { background: var(--blue); color: var(--white); padding: 4rem 0 0; border-top: 1px solid rgba(254,254,254,0.12); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(254,254,254,0.12); }
+    .footer-logo { display: inline-block; margin-bottom: 0.4rem; }
+    .footer-logo img { height: 110px; width: auto; object-fit: contain; }
+    .footer-desc { font-size: 0.9rem; line-height: 1.65; opacity: 0.65; max-width: 300px; }
+    .footer-col-heading { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--red); margin-bottom: 0.4rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-links a { color: var(--white); text-decoration: none; font-size: 0.9rem; opacity: 0.7; transition: opacity 150ms, color 150ms; }
+    .footer-links a:hover { opacity: 1; color: var(--red); }
+    .footer-contact-item { display: flex; flex-direction: column; gap: 0.15rem; margin-bottom: 0.85rem; }
+    .footer-contact-label { font-size: 0.75rem; opacity: 0.5; letter-spacing: 0.1em; text-transform: uppercase; }
+    .footer-contact-value { font-size: 0.9rem; opacity: 0.85; }
+    .footer-bottom { padding: 1.25rem 0; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; opacity: 0.45; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 1024px) { .plans-cards { grid-template-columns: 1fr 1fr; gap: 1.5rem; } .benefits-grid { grid-template-columns: 1fr 1fr; } .compare-table { font-size: 0.85rem; } .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { .navbar-links, .navbar-book-btn { display: none; } .navbar-hamburger { display: flex; } .plans-cards { grid-template-columns: 1fr; gap: 1.5rem; } .compare { overflow-x: auto; } .compare-table { min-width: 600px; } .benefits-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .plans-intro { padding: 3rem 0 2rem; }
+      .plans-grid { padding: 0 0 3rem; }
+      .plans-cards { gap: 1.25rem; }
+      .plan-amount { font-size: 4rem; }
+      .plan-card-body { padding: 1.25rem; }
+      .compare { padding: 3rem 0; }
+      .benefits { padding: 3rem 0; }
+      .faq { padding: 0 0 3rem; }
+      .final-cta { padding: 3rem 0; }
+      .section-heading { font-size: 2.25rem; }
+      .faq-question { font-size: 1rem; }
+    }
+    @media (max-width: 375px) {
+      .container { padding: 0 1rem; }
+      .page-title { font-size: 3rem; }
+      .page-hero-content { padding: 2.5rem 1rem 3rem; }
+      .plan-amount { font-size: 3.5rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo" aria-label="ATC Sports Complex Home">
+        <img src="brand-assets/hf_20260626_002239_5c30b276-5fef-42db-9230-a0e8dd426891-Photoroom.png" alt="ATC Sports Complex">
+      </a>
+      <ul class="navbar-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="court-bookings.html">Court Bookings</a></li>
+        <li><a href="book-a-class.html">Book a Class</a></li>
+        <li><a href="plans.html" class="active">Plans</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn-primary navbar-book-btn">Get Started</a>
+      <button class="navbar-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="navbar-mobile" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="court-bookings.html">Court Bookings</a>
+    <a href="book-a-class.html">Book a Class</a>
+    <a href="plans.html">Plans</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" style="color:var(--red);margin-top:0.5rem;">Get Started →</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero" aria-label="Plans hero">
+    <div class="page-hero-bg" role="img" aria-label="Sports facility"></div>
+    <div class="page-hero-red-line" aria-hidden="true"></div>
+    <div class="page-hero-content">
+      <p class="page-label">Membership Options</p>
+      <h1 class="page-title">OUR<br><span class="accent">PLANS</span></h1>
+      <p class="page-subtitle">Flexible membership options for individuals, families, and groups. Find the plan that fits your lifestyle and sporting ambitions.</p>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="plans-intro" aria-labelledby="plans-intro-heading">
+    <div class="container">
+      <p class="section-label" style="justify-content:center;">Choose Your Plan</p>
+      <h2 class="section-heading" id="plans-intro-heading">Flexible <span class="accent">Membership</span><br>for Everyone</h2>
+      <p class="body-text" style="max-width:580px;">Whether you're dropping in for a casual session or training week-round, ATC Sports Complex has a plan to match your commitment. Contact us to discuss current pricing and get started.</p>
+    </div>
+  </section>
+
+  <!-- PLANS CARDS -->
+  <section class="plans-grid" aria-labelledby="plans-heading">
+    <div class="container">
+      <div class="plans-cards" role="list">
+
+        <!-- Monthly Plan -->
+        <article class="plan-card" role="listitem" aria-label="Monthly Plan">
+          <div class="plan-card-img" style="background-image: url('brand-assets/facility-photo.jpg');" role="img" aria-label="ATC Sports Complex facility"></div>
+          <div class="plan-card-body">
+            <div class="plan-name">Monthly Plan</div>
+            <div class="plan-price-row">
+              <span class="plan-currency">$</span>
+              <span class="plan-amount">60</span>
+            </div>
+            <div class="plan-period">Every month</div>
+            <div class="plan-joining">+$60 Joining Fee</div>
+            <div class="plan-desc">Unsure if you are Ready?</div>
+            <div class="plan-validity">Valid for 2 months</div>
+            <a href="contact.html" class="btn-plan-select">Select</a>
+          </div>
+          <div class="plan-card-footer">No Commitment. Exclusive Female and Male areas.</div>
+        </article>
+
+        <!-- Taqwa Membership — Featured -->
+        <article class="plan-card plan-card-featured" role="listitem" aria-label="Taqwa Membership — Best Value">
+          <div class="plan-card-img" style="background-image: url('brand-assets/IMG_0349-2048x1536.jpeg'); background-position: center 60%;" role="img" aria-label="ATC Sports Complex courts"></div>
+          <div class="plan-card-body">
+            <span class="plan-best-badge">Best Value</span>
+            <div class="plan-name">Taqwa Membership</div>
+            <div class="plan-price-row">
+              <span class="plan-currency">$</span>
+              <span class="plan-amount">600</span>
+            </div>
+            <div class="plan-period">Every year</div>
+            <div class="plan-joining">+$60 Joining Fee</div>
+            <div class="plan-desc">Ideal for those who want to go hard</div>
+            <div class="plan-validity">Valid for 2 years</div>
+            <a href="contact.html" class="btn-plan-select">Select</a>
+          </div>
+          <div class="plan-card-footer">Female and Male exclusive areas</div>
+        </article>
+
+        <!-- Tri Membership -->
+        <article class="plan-card" role="listitem" aria-label="Tri Membership">
+          <div class="plan-card-img" style="background-image: url('brand-assets/basketball-match.jpg');" role="img" aria-label="ATC Sports Complex basketball"></div>
+          <div class="plan-card-body">
+            <div class="plan-name">Tri Membership</div>
+            <div class="plan-price-row">
+              <span class="plan-currency">$</span>
+              <span class="plan-amount">160</span>
+            </div>
+            <div class="plan-period">Every 3 months</div>
+            <div class="plan-joining">+$60 Joining Fee</div>
+            <div class="plan-desc">Short-term trial for beginners</div>
+            <div class="plan-validity">Valid for 9 months</div>
+            <a href="contact.html" class="btn-plan-select">Select</a>
+          </div>
+          <div class="plan-card-footer">Female and Male exclusive areas</div>
+        </article>
+
+      </div>
+
+      <div class="plans-footnote">
+        <strong>*Prices subject to Change</strong><br>
+        Joining Fee includes one complimentary tailored plan to suit your personal fitness goals
+      </div>
+
+    </div>
+  </section>
+
+  <!-- COMPARE TABLE -->
+  <section class="compare" aria-labelledby="compare-heading">
+    <div class="container">
+      <p class="section-label-white">Side by Side</p>
+      <h2 class="section-heading-white" id="compare-heading">Compare Plans</h2>
+
+      <div style="overflow-x:auto;" tabindex="0" aria-label="Plan comparison table">
+        <table class="compare-table" role="table">
+          <thead>
+            <tr>
+              <th scope="col">Feature</th>
+              <th scope="col">Monthly Plan</th>
+              <th scope="col">Taqwa Membership</th>
+              <th scope="col">Tri Membership</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Price</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">$60 / month</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">$600 / year</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">$160 / 3 months</td>
+            </tr>
+            <tr class="compare-highlight">
+              <td>Joining Fee</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">$60</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">$60</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">$60</td>
+            </tr>
+            <tr>
+              <td>Validity</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">2 months</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">2 years</td>
+              <td style="color:rgba(254,254,254,0.9);text-align:center;">9 months</td>
+            </tr>
+            <tr class="compare-highlight">
+              <td>No Commitment</td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="cross-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Not included"><path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td>
+              <td><svg class="cross-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Not included"><path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td>
+            </tr>
+            <tr>
+              <td>Female Exclusive Area</td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr class="compare-highlight">
+              <td>Male Exclusive Area</td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr>
+              <td>Tailored Fitness Plan</td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+            </tr>
+            <tr class="compare-highlight">
+              <td>Best Value</td>
+              <td><svg class="cross-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Not included"><path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td>
+              <td><svg class="check-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Included"><path d="M3 9L7.5 13.5L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+              <td><svg class="cross-icon" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-label="Not included"><path d="M4 4L14 14M14 4L4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits" aria-labelledby="benefits-heading">
+    <div class="container">
+      <p class="section-label">Why Choose ATC</p>
+      <h2 class="section-heading" id="benefits-heading">Member <span class="accent">Benefits</span></h2>
+      <div class="benefits-grid" role="list">
+        <div class="benefit-item" role="listitem">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="2"/><path d="M11 7V11L14 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="benefit-title">Flexible Hours</div>
+            <p class="benefit-desc">Access to courts during operating hours. Contact us for our current schedule and peak times.</p>
+          </div>
+        </div>
+        <div class="benefit-item" role="listitem">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3L14 8H19L15 11.5L16.5 17L11 14L5.5 17L7 11.5L3 8H8L11 3Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="benefit-title">World-Class Facilities</div>
+            <p class="benefit-desc">Professional-grade courts, equipment and amenities designed for peak athletic performance.</p>
+          </div>
+        </div>
+        <div class="benefit-item" role="listitem">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="8" cy="7" r="4" stroke="currentColor" stroke-width="2"/><path d="M2 19C2 15.13 4.69 12 8 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="14" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 19C12 17.34 13.79 16 16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="benefit-title">Community Focus</div>
+            <p class="benefit-desc">A welcoming environment for the whole community — individuals, families, schools and clubs.</p>
+          </div>
+        </div>
+        <div class="benefit-item" role="listitem">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="15" rx="1" stroke="currentColor" stroke-width="2"/><path d="M3 9H19" stroke="currentColor" stroke-width="2"/><path d="M8 2V5M14 2V5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="benefit-title">Easy Booking</div>
+            <p class="benefit-desc">Simple booking process via phone or email. Members get priority access and extended booking windows.</p>
+          </div>
+        </div>
+        <div class="benefit-item" role="listitem">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3C6.58 3 3 6.58 3 11C3 15.42 6.58 19 11 19C15.42 19 19 15.42 19 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15 3L19 7L22 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="benefit-title">Multi-Sport Access</div>
+            <p class="benefit-desc">One membership covers access to multiple sports — basketball, tennis, volleyball, futsal and more.</p>
+          </div>
+        </div>
+        <div class="benefit-item" role="listitem">
+          <div class="benefit-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L13.09 8.26L19.18 8.27L14.54 11.97L16.63 18.23L11 14.54L5.37 18.23L7.46 11.97L2.82 8.27L8.91 8.26L11 2Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div class="benefit-title">Inclusive Environment</div>
+            <p class="benefit-desc">Gender-segregated facilities available — providing comfort and confidence for all members of our community.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" aria-labelledby="faq-heading">
+    <div class="container">
+      <p class="section-label" style="padding-top:5rem;">Common Questions</p>
+      <h2 class="section-heading" id="faq-heading">Frequently<br>Asked <span class="accent">Questions</span></h2>
+      <div class="faq-list" role="list">
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-1">How do I sign up for a membership?</button>
+          <div class="faq-answer" id="faq-1" role="region">Contact our team directly via phone on 0485 560 348 or email courthire@atc.vic.edu.au. We'll walk you through the available plans, current pricing, and get you set up.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-2">Can I try the facilities before joining?</button>
+          <div class="faq-answer" id="faq-2" role="region">Yes — you can book courts on a casual basis before committing to a membership. Contact us to arrange a session and experience our facilities first-hand.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-3">Are there family or group discounts?</button>
+          <div class="faq-answer" id="faq-3" role="region">Yes, we offer group rates and family packages. Contact us to discuss your specific needs and we'll create a package that works for your group or family.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-4">What sports are included in a membership?</button>
+          <div class="faq-answer" id="faq-4" role="region">Member plans give access to all available courts — basketball, tennis, volleyball, futsal, table tennis, cricket and outdoor sports. As new courts and sports are added (pickleball, badminton), members will have access.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-5">Are there school or student rates?</button>
+          <div class="faq-answer" id="faq-5" role="region">ATC Sports Complex welcomes schools and educational programs. We offer tailored packages for school groups, student discounts, and structured sports day programs. Contact us to discuss options.</div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" aria-controls="faq-6">When will the gender-segregated gyms be open?</button>
+          <div class="faq-answer" id="faq-6" role="region">Our male and female gyms are coming soon. Contact us or follow our updates to be the first to know when they open. Existing members will have early access when they launch.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta" aria-labelledby="final-cta-heading">
+    <div class="container">
+      <h2 class="final-cta-heading" id="final-cta-heading">Ready to Join<br>ATC Sports Complex?</h2>
+      <p class="final-cta-text">Contact our team today to find the right plan for you.</p>
+      <a href="contact.html" class="btn-white-red">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo"><img src="brand-assets/hf_20260626_002239_5c30b276-5fef-42db-9230-a0e8dd426891-Photoroom.png" alt="ATC Sports Complex"></div>
+          <p class="footer-desc">Built for impact — ATC Sports Complex delivers scale, performance, and purpose. Truganina's premier multi-sporting destination.</p>
+        </div>
+        <div>
+          <div class="footer-col-heading">Navigate</div>
+          <ul class="footer-links" role="list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="court-bookings.html">Court Bookings</a></li>
+            <li><a href="book-a-class.html">Book a Class</a></li>
+            <li><a href="plans.html">Plans</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-heading">Plans</div>
+          <ul class="footer-links" role="list">
+            <li><a href="plans.html">Casual</a></li>
+            <li><a href="plans.html">Member</a></li>
+            <li><a href="plans.html">Annual</a></li>
+            <li><a href="contact.html">Group Rates</a></li>
+            <li><a href="contact.html">School Programs</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-heading">Contact</div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Address</span>
+            <span class="footer-contact-value">201 Sayers Road<br>Truganina VIC 3029</span>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Phone</span>
+            <a href="tel:0485560348" class="footer-contact-value" style="color:inherit;text-decoration:none;">0485 560 348</a>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label">Email</span>
+            <a href="mailto:courthire@atc.vic.edu.au" class="footer-contact-value" style="color:inherit;text-decoration:none;font-size:0.82rem;">courthire@atc.vic.edu.au</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 ATC Sports Complex. All rights reserved.</span>
+        <span>201 Sayers Road, Truganina VIC 3029</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
